@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Project
- * @  Assert\Callback(methods={"isDateValid"})
+ * @Assert\Callback(methods={"isDateValid"})
  */
 class Project
 {
@@ -178,10 +178,10 @@ class Project
         return $this->am;
     }
     
-//    public function isDateValid(ExecutionContext $context)
-//    {
-//        if ($this->createdAt < $this->endAt) {
-//            $context->addViolationAt('endAt', 'The end date must be created date !', array(), null);
-//        }
-//    }
+    public function isDateValid(ExecutionContext $context)
+    {
+        if ($this->endAt !== null && $this->createdAt >= $this->endAt) {
+            $context->addViolationAt('endAt', 'The end date must be later than created date !', array(), null);
+        }
+    }
 }
