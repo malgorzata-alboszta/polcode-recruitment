@@ -2,10 +2,14 @@
 
 namespace Polcode\Bundle\RecruitmentBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Project
+ * @  Assert\Callback(methods={"isDateValid"})
  */
 class Project
 {
@@ -16,24 +20,38 @@ class Project
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * 
      */
     private $name;
 
     /**
-     * @var \DateTime
+     * @var DateTime
+     * @Assert\NotBlank()
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
+     * @var DateTime
+     * 
      */
     private $endAt;
 
     /**
      * @var boolean
+     * @Assert\NotNull()
      */
     private $isInternal;
+    /**
+     *
+     * @var AM
+     */
+    private $am;
 
+    public function __construct()
+    {
+        $this->createdAt= new DateTime();
+    }
 
     /**
      * Get id
@@ -71,7 +89,7 @@ class Project
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param DateTime $createdAt
      * @return Project
      */
     public function setCreatedAt($createdAt)
@@ -84,7 +102,7 @@ class Project
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getCreatedAt()
     {
@@ -94,7 +112,7 @@ class Project
     /**
      * Set endAt
      *
-     * @param \DateTime $endAt
+     * @param DateTime $endAt
      * @return Project
      */
     public function setEndAt($endAt)
@@ -107,7 +125,7 @@ class Project
     /**
      * Get endAt
      *
-     * @return \DateTime 
+     * @return DateTime 
      */
     public function getEndAt()
     {
@@ -136,4 +154,34 @@ class Project
     {
         return $this->isInternal;
     }
+
+    /**
+     * Set am
+     *
+     * @param AM $am
+     * @return Project
+     */
+    public function setAm(AM $am = null)
+    {
+        $this->am = $am;
+
+        return $this;
+    }
+
+    /**
+     * Get am
+     *
+     * @return AM 
+     */
+    public function getAm()
+    {
+        return $this->am;
+    }
+    
+//    public function isDateValid(ExecutionContext $context)
+//    {
+//        if ($this->createdAt < $this->endAt) {
+//            $context->addViolationAt('endAt', 'The end date must be created date !', array(), null);
+//        }
+//    }
 }

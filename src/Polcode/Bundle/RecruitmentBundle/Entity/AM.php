@@ -3,6 +3,7 @@
 namespace Polcode\Bundle\RecruitmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AM
@@ -16,19 +17,28 @@ class AM
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      */
     private $firstName;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      */
     private $lastName;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *              message ="Plesae fill with correct email adress",
+     *              checkMX = true
+     *              )
+     * @Assert\Length(max=255)
      */
     private $email;
-
 
     /**
      * Get id

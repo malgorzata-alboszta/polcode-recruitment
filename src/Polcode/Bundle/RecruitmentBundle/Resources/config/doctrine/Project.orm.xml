@@ -8,5 +8,8 @@
     <field name="createdAt" type="datetime" column="createdAt"/>
     <field name="endAt" type="datetime" column="endAt" nullable="true"/>
     <field name="isInternal" type="boolean" column="is_internal" />
+    <many-to-one field="am" target-entity="AM">
+            <join-column name="am_id" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>
