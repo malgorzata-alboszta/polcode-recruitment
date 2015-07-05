@@ -34,6 +34,7 @@ class ProjectAdmin extends Admin
             ->add('isInternal')
             ->add('createdAt')
             ->add('endAt')
+            ->add('am', null, array('associated_property'=>'lastName'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

@@ -10,15 +10,16 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class EmployeeAdmin extends Admin
 {
+
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
+                ->add('firstName')
+                ->add('lastName')
+                ->add('email')
         ;
     }
 
@@ -28,16 +29,17 @@ class EmployeeAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+                ->add('firstName')
+                ->add('lastName')
+                ->add('email')
+                ->add('am', null, array('associated_property' => 'lastName'))
+                ->add('_action', 'actions', array(
+                    'actions' => array(
+                        'show' => array(),
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
+                ))
         ;
     }
 
@@ -47,10 +49,12 @@ class EmployeeAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('am', null, array('property'=>'lastName'))
+                ->add('firstName')
+                ->add('lastName')
+                ->add('email')
+                ->add('am', null, array('property' => 'lastName'))
+                ->add('projects', null, array('property' => 'name'))
+
         ;
     }
 
@@ -60,9 +64,12 @@ class EmployeeAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
+                ->add('firstName')
+                ->add('lastName')
+                ->add('email')
+                ->add('am', null, array('associated_property' => 'lastName'))
+                ->add('projects', null, array('associated_property' => 'name'))
         ;
     }
+
 }
