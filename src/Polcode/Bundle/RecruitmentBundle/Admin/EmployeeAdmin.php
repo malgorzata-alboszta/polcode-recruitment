@@ -50,6 +50,7 @@ class EmployeeAdmin extends Admin
             ->add('firstName')
             ->add('lastName')
             ->add('email')
+            ->add('am', null, array('property'=>'lastName'))
         ;
     }
 

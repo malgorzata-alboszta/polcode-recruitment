@@ -54,6 +54,7 @@ class ProjectAdmin extends Admin
             ->add('isInternal')
             ->add('createdAt')
             ->add('endAt')
+            ->add('am', null, array('property'=>'lastName'))
         ;
     }
 

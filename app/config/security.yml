@@ -1,15 +1,38 @@
 security:
     encoders:
-        "Application\Sonata\UserBundle\Entity\User":
+        Application\Sonata\UserBundle\Entity\User:
             algorithm: sha512
             encode_as_base64: false
             iterations: 1
 
-        "Symfony\Component\Security\Core\User\User": plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_POLCODE_HR: [ROLE_USER, ROLE_POLCODE, ROLE_SONATA_ADMIN]
+        ROLE_POLCODE:
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_LIST
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_VIEW
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_CREATE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_EDIT
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_DELETE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_EMPLOYEE_EXPORT
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_LIST
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_VIEW
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_CREATE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_EDIT
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_DELETE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_AM_EXPORT
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_LIST
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_VIEW
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_CREATE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_EDIT
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_DELETE
+            - ROLE_POLCODE_RECRUITMENT_ADMIN_PROJECT_EXPORT
+            
+    access_decision_manager:
+        strategy: unanimous
 
     providers:
         fos_userbundle:
@@ -48,5 +71,7 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # It also secures the shop checkout process
         # Change these rules to adapt them to your needs
-        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-        - { path: ^/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
+        - { path: ^/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
+        
+       
